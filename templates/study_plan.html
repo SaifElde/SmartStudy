@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}الخطة الدراسية - SmartStudy{% endblock %}
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="alert alert-info">
+        <i class="bi bi-arrow-repeat"></i> جاري تحويلك إلى الخطة الأسبوعية...
+    </div>
+    <meta http-equiv="refresh" content="2;url={{ url_for('weekly_plan') }}">
+</div>
+{% endblock %}

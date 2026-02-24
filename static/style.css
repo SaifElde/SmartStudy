@@ -1,0 +1,674 @@
+/* ========== الألوان الأساسية من الشعار ========== */
+:root {
+    --primary-blue: #3a5f8f;
+    --primary-red: #c43e3e;
+    --primary-blue-light: #4f7ab3;
+    --primary-red-light: #d65f5f;
+    --accent-gold: #e6b422;
+    --accent-gold-light: #f0c45a;
+    --bg-light-start: #f0f4ff;
+    --bg-light-end: #e6ecff;
+    --bg-dark-start: #1a1f2e;
+    --bg-dark-end: #0f1420;
+    --text-light: #1a2639;
+    --text-dark: #e9edf5;
+    --card-light: #ffffff;
+    --card-dark: #242b3d;
+    --border-light: #d9e0eb;
+    --border-dark: #3a4a6b;
+}
+
+/* ========== تعريف أحجام الخطوط (3 أحجام فقط) ========== */
+:root {
+    /* الحجم الكبير - للعناوين الرئيسية */
+    --font-xxl: 2rem;      /* 32px */
+    
+    /* الحجم المتوسط - للعناوين الفرعية والنصوص المهمة */
+    --font-lg: 1.25rem;    /* 20px */
+    
+    /* الحجم الصغير - للنصوص العادية */
+    --font-md: 1rem;       /* 16px */
+}
+
+/* ========== الوضع النهاري ========== */
+body.light-mode {
+    background: linear-gradient(135deg, var(--bg-light-start), var(--bg-light-end));
+    color: var(--text-light);
+    font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: var(--font-md);  /* الحجم الأساسي 16px */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== الوضع الليلي ========== */
+body.dark-mode {
+    background: linear-gradient(135deg, var(--bg-dark-start), var(--bg-dark-end));
+    color: var(--text-dark);
+    font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: var(--font-md);  /* الحجم الأساسي 16px */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== توزيع الأحجام الثلاثة فقط ========== */
+
+/* 1️⃣ الحجم الكبير (32px) - للعناوين الرئيسية فقط */
+h1, h2, .display-4, .navbar-brand, .hero-title, .stat-number {
+    font-size: var(--font-xxl) !important;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* 2️⃣ الحجم المتوسط (20px) - للعناوين الفرعية والنصوص البارزة */
+h3, h4, h5, .card-title, .modal-title, .lead, .btn, .badge, 
+.assistant-header, .footer h5, .quick-action-card h5 {
+    font-size: var(--font-lg) !important;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* 3️⃣ الحجم الصغير (16px) - لكل النصوص العادية */
+p, h6, .small, .card-text, .form-label, .table, .list-unstyled,
+.alert, .nav-link, .dropdown-item, .modal-body, .footer p,
+.assistant-body, .subject-item, .progress-bar, .stat-box .text-muted,
+.breadcrumb, .tooltip, .popover, .toast-body {
+    font-size: var(--font-md) !important;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* استثناءات بسيطة (نفس الأحجام الثلاثة) */
+.btn i, .nav-link i {
+    font-size: calc(var(--font-md) + 0.2rem);  /* 18px - تقريباً نفس المتوسط */
+}
+
+.assistant-toggle i {
+    font-size: var(--font-lg);  /* 20px */
+}
+
+.footer .small {
+    font-size: calc(var(--font-md) - 0.1rem);  /* 14px - قريب من الصغير */
+    opacity: 0.9;
+}
+
+/* ========== باقي التنسيقات (بدون تغيير) ========== */
+body.light-mode .card {
+    background-color: var(--card-light);
+    border: 1px solid var(--border-light);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(58, 95, 143, 0.1);
+}
+
+body.light-mode .bg-primary {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light)) !important;
+}
+
+body.light-mode .bg-danger {
+    background: linear-gradient(135deg, var(--primary-red), var(--primary-red-light)) !important;
+}
+
+body.light-mode .bg-success {
+    background: linear-gradient(135deg, #2e7d5e, #3b9b78) !important;
+}
+
+body.light-mode .bg-warning {
+    background: linear-gradient(135deg, #d49b3b, #e6b422) !important;
+}
+
+body.light-mode .bg-info {
+    background: linear-gradient(135deg, #2d708b, #3598b5) !important;
+}
+
+body.light-mode .btn-primary {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+    border: none;
+    color: white;
+    transition: all 0.3s;
+}
+
+body.light-mode .btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-blue-light), var(--primary-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(58, 95, 143, 0.4);
+}
+
+body.light-mode .btn-danger {
+    background: linear-gradient(135deg, var(--primary-red), var(--primary-red-light));
+    border: none;
+}
+
+body.light-mode .btn-danger:hover {
+    background: linear-gradient(135deg, var(--primary-red-light), var(--primary-red));
+    transform: translateY(-2px);
+}
+
+body.light-mode .navbar {
+    background: linear-gradient(135deg, var(--primary-blue), #2a4570) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.light-mode .footer {
+    background: linear-gradient(135deg, #ffffff, #f5f7fc) !important;
+    border-top: 3px solid var(--primary-blue);
+    color: var(--text-light);
+    margin-top: auto;
+}
+
+body.light-mode .footer a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+body.light-mode .footer a:hover {
+    color: var(--primary-red);
+}
+
+body.light-mode .table {
+    color: var(--text-light);
+}
+
+body.light-mode .table thead {
+    background: linear-gradient(135deg, var(--primary-blue), #2a4570);
+    color: white;
+}
+
+body.light-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(58, 95, 143, 0.05);
+}
+
+/* ========== الوضع الليلي ========== */
+body.dark-mode .card {
+    background-color: var(--card-dark);
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .bg-primary {
+    background: linear-gradient(135deg, #2a4570, #1e3a5f) !important;
+}
+
+body.dark-mode .bg-danger {
+    background: linear-gradient(135deg, #a83a3a, #8f2e2e) !important;
+}
+
+body.dark-mode .bg-success {
+    background: linear-gradient(135deg, #236b4f, #1e5a42) !important;
+}
+
+body.dark-mode .bg-warning {
+    background: linear-gradient(135deg, #b8822b, #9e6f24) !important;
+}
+
+body.dark-mode .bg-info {
+    background: linear-gradient(135deg, #2d708b, #235e75) !important;
+}
+
+body.dark-mode .btn-primary {
+    background: linear-gradient(135deg, #2a4570, #1e3a5f);
+    border: none;
+    color: white;
+}
+
+body.dark-mode .btn-primary:hover {
+    background: linear-gradient(135deg, #1e3a5f, #152b45);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .btn-danger {
+    background: linear-gradient(135deg, #a83a3a, #8f2e2e);
+    border: none;
+}
+
+body.dark-mode .btn-danger:hover {
+    background: linear-gradient(135deg, #8f2e2e, #702525);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .navbar {
+    background: linear-gradient(135deg, #1e2a3d, #151f2e) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .footer {
+    background: linear-gradient(135deg, #1e2335, #151a28) !important;
+    border-top: 3px solid var(--primary-red);
+    color: #adb5bd;
+    margin-top: auto;
+}
+
+body.dark-mode .footer a {
+    color: var(--primary-red-light);
+    text-decoration: none;
+}
+
+body.dark-mode .footer a:hover {
+    color: var(--primary-red);
+}
+
+body.dark-mode .table {
+    color: var(--text-dark);
+}
+
+body.dark-mode .table thead {
+    background: linear-gradient(135deg, #1e2a3d, #151f2e);
+    color: white;
+}
+
+body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .bg-light {
+    background-color: #2d3447 !important;
+    color: var(--text-dark) !important;
+}
+
+body.dark-mode .text-muted {
+    color: #9aa5b8 !important;
+}
+
+body.dark-mode .modal-content {
+    background-color: var(--card-dark);
+    color: var(--text-dark);
+    border: 1px solid var(--border-dark);
+}
+
+body.dark-mode .modal-header {
+    border-bottom: 1px solid var(--border-dark);
+    background: linear-gradient(135deg, #1e2a3d, #151f2e);
+    color: white;
+}
+
+body.dark-mode .modal-footer {
+    border-top: 1px solid var(--border-dark);
+}
+
+body.dark-mode .form-control {
+    background-color: #1e2436;
+    border: 1px solid #3a4a6b;
+    color: var(--text-dark);
+}
+
+body.dark-mode .form-control:focus {
+    background-color: #2a3147;
+    border-color: var(--primary-red-light);
+    box-shadow: 0 0 0 0.2rem rgba(196, 62, 62, 0.25);
+}
+
+body.dark-mode .input-group-text {
+    background-color: #2a3147;
+    border: 1px solid #3a4a6b;
+    color: var(--text-dark);
+}
+
+body.dark-mode .alert-info {
+    background-color: #1e3a5f;
+    color: #e9edf5;
+    border-color: #2a4570;
+}
+
+body.dark-mode .alert-success {
+    background-color: #1e5a42;
+    color: #e9edf5;
+    border-color: #236b4f;
+}
+
+body.dark-mode .alert-danger {
+    background-color: #8f2e2e;
+    color: #e9edf5;
+    border-color: #a83a3a;
+}
+
+body.dark-mode .alert-warning {
+    background-color: #9e6f24;
+    color: #e9edf5;
+    border-color: #b8822b;
+}
+
+/* ========== العناصر المشتركة ========== */
+.card {
+    border-radius: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(58, 95, 143, 0.2);
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s;
+    padding: 8px 20px;
+}
+
+.stat-box {
+    transition: all 0.3s;
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ========== المساعد الذكي ========== */
+.smart-assistant {
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    width: 280px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.light-mode .smart-assistant {
+    background: white;
+    border: 1px solid var(--border-light);
+}
+
+body.dark-mode .smart-assistant {
+    background: var(--card-dark);
+    border: 1px solid var(--border-dark);
+}
+
+.assistant-header {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.assistant-body {
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.assistant-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.assistant-toggle:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 6px 15px rgba(196, 62, 62, 0.4);
+}
+
+.assistant-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.assistant-close:hover {
+    transform: scale(1.2);
+}
+
+/* ========== تخصيص شريط التمرير ========== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+    background: #2a3147;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-red);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: var(--primary-red-light);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-red);
+}
+
+/* ========== أزرار التبديل ========== */
+#themeToggle {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.3s;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#themeToggle:hover {
+    background: rgba(255,255,255,0.3);
+    transform: rotate(30deg);
+}
+
+/* ========== شعار الموقع في النافبار ========== */
+.navbar-brand {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-brand img {
+    height: 40px;
+    width: auto;
+    border-radius: 8px;
+}
+
+/* ========== تحسينات إضافية ========== */
+.progress {
+    border-radius: 10px;
+    background-color: #e9ecef;
+    height: 10px;
+    overflow: hidden;
+}
+
+body.dark-mode .progress {
+    background-color: #2d3447;
+}
+
+.progress-bar {
+    transition: width 1s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.subject-item {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.subject-item:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* تأثيرات خاصة للشعار */
+.profile-avatar {
+    border: 4px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05);
+}
+
+body.dark-mode .profile-avatar {
+    border-color: var(--primary-red-light);
+}
+
+/* ========== الأزرار السريعة في لوحة التحكم ========== */
+.quick-action-card {
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 100%;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* ========== تنسيق الجداول ========== */
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary-blue);
+}
+
+/* ========== شارات التقييم ========== */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* ========== الفوتر ========== */
+.footer {
+    padding: 30px 0 20px;
+    margin-top: 50px;
+}
+
+.footer h5 {
+    margin-bottom: 15px;
+}
+
+.footer ul {
+    padding: 0;
+}
+
+.footer ul li {
+    margin-bottom: 8px;
+}
+
+.footer hr {
+    margin: 20px 0;
+    border-color: var(--border-light);
+}
+
+body.dark-mode .footer hr {
+    border-color: var(--border-dark);
+}
+
+/* ========== وسوم المساعدة ========== */
+main {
+    flex: 1 0 auto;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* ========== تنسيقات للأجهزة المحمولة ========== */
+@media (max-width: 768px) {
+    .navbar-brand {
+        gap: 5px;
+    }
+    
+    .navbar-brand img {
+        height: 30px;
+    }
+    
+    .stat-box {
+        padding: 15px;
+    }
+    
+    .smart-assistant {
+        width: 240px;
+        left: 10px;
+        bottom: 70px;
+    }
+    
+    .assistant-toggle {
+        width: 45px;
+        height: 45px;
+        left: 10px;
+        bottom: 10px;
+    }
+}
+
+/* ========== تنسيقات للطباعة ========== */
+@media print {
+    .navbar, .footer, .assistant-toggle, .smart-assistant, .btn {
+        display: none !important;
+    }
+}

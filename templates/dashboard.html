@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+{% block title %}لوحة التحكم - SmartStudy{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <!-- بطاقات الإحصائيات -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">عدد المواد</h6>
+                        <h2 class="mb-0">{{ total_subjects }}</h2>
+                    </div>
+                    <i class="bi bi-book fs-1"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">المعدل العام</h6>
+                        <h2 class="mb-0">{{ avg_grade }}%</h2>
+                    </div>
+                    <i class="bi bi-graph-up fs-1"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title">الخطة الأسبوعية</h6>
+                        <h2 class="mb-0">14 ساعة</h2>
+                    </div>
+                    <i class="bi bi-calendar-week fs-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- أزرار سريعة -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <a href="/weekly_plan" class="text-decoration-none">
+                <div class="card bg-info text-white text-center p-3">
+                    <i class="bi bi-calendar-week fs-1"></i>
+                    <h5>الخطة الأسبوعية</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="/profile" class="text-decoration-none">
+                <div class="card bg-success text-white text-center p-3">
+                    <i class="bi bi-person-circle fs-1"></i>
+                    <h5>الملف الشخصي</h5>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white text-center p-3" onclick="toggleAssistant()" style="cursor:pointer;">
+                <i class="bi bi-robot fs-1"></i>
+                <h5>المساعد الذكي</h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- قائمة المواد -->
+    <div class="card">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="bi bi-list-task"></i> المواد الدراسية</h5>
+            <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
+                <i class="bi bi-plus-circle"></i> إضافة مادة
+            </button>
+        </div>
+        <div class="card-body">
+            {% if subjects %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>اسم المادة</th>
+                            <th>الدرجة</th>
+                            <th>التقييم</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for id, name, grade in subjects %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><strong>{{ name }}</strong></td>
+                            <td>
+                                <span class="badge {% if grade >= 80 %}bg-success{% elif grade >= 60 %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                                    {{ grade }}%
+                                </span>
+                            </td>
+                            <td>
+                                {% if grade >= 90 %}
+                                    <span class="badge bg-success">ممتاز</span>
+                                {% elif grade >= 80 %}
+                                    <span class="badge bg-primary">جيد جداً</span>
+                                {% elif grade >= 70 %}
+                                    <span class="badge bg-info">جيد</span>
+                                {% elif grade >= 60 %}
+                                    <span class="badge bg-warning">مقبول</span>
+                                {% else %}
+                                    <span class="badge bg-danger">ضعيف</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-warning edit-btn" data-id="{{ id }}" data-name="{{ name }}" data-grade="{{ grade }}">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <form action="/delete_subject/{{ id }}" method="post" style="display:inline;" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-emoji-frown fs-1 text-muted"></i>
+                <h5 class="mt-3 text-muted">لا توجد مواد بعد</h5>
+                <p class="text-muted">أضف موادك الدراسية لبدء إنشاء خطتك الأسبوعية</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
+                    <i class="bi bi-plus-circle"></i> إضافة أول مادة
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- تحديد يوم العطلة -->
+    <div class="card mt-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="bi bi-calendar-x"></i> تحديد يوم العطلة الأسبوعية</h5>
+        </div>
+        <div class="card-body">
+            <form action="/set_rest_day" method="post" class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label class="col-form-label">اختر يوم العطلة:</label>
+                </div>
+                <div class="col-auto">
+                    <select name="rest_day" class="form-select">
+                        <option value="">-- بدون عطلة --</option>
+                        {% for day in ["السبت", "الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة"] %}
+                            <option value="{{ day }}" {% if rest_day == day %}selected{% endif %}>{{ day }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- زر الإضافة العائم -->
+    <button class="btn btn-primary rounded-circle position-fixed" style="bottom: 30px; left: 30px; width: 60px; height: 60px; font-size: 24px;" data-bs-toggle="modal" data-bs-target="#addSubjectModal">
+        <i class="bi bi-plus-lg"></i>
+    </button>
+</div>
+
+<!-- مودال إضافة مادة -->
+<div class="modal fade" id="addSubjectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="bi bi-plus-circle"></i> إضافة مادة جديدة</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/add_subject" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">اسم المادة</label>
+                        <input type="text" class="form-control" name="subject_name" required placeholder="مثال: الرياضيات">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">الدرجة الحالية (0-100)</label>
+                        <input type="number" class="form-control" name="grade" min="0" max="100" required>
+                    </div>
+                    <div class="alert alert-info small">
+                        <i class="bi bi-info-circle"></i> سيتم تخصيص وقت أكبر للمواد ذات الدرجات المنخفضة.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">إضافة</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- مودال تعديل مادة -->
+<div class="modal fade" id="editSubjectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title"><i class="bi bi-pencil"></i> تعديل المادة</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="" method="post" id="editForm">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">اسم المادة</label>
+                        <input type="text" class="form-control" name="subject_name" id="editSubjectName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">الدرجة الحالية</label>
+                        <input type="number" class="form-control" name="grade" id="editGrade" min="0" max="100" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-warning">تعديل</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function editSubject(id, name, grade) {
+    document.getElementById('editSubjectName').value = name;
+    document.getElementById('editGrade').value = grade;
+    document.getElementById('editForm').action = '/edit_subject/' + id;
+    new bootstrap.Modal(document.getElementById('editSubjectModal')).show();
+}
+</script>
+{% endblock %}
