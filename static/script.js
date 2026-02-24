@@ -122,7 +122,7 @@ function drawGradesChart() {
                     labels: {
                         font: {
                             family: 'Segoe UI',
-                            size: 12
+                            size: 10
                         }
                     }
                 },
@@ -138,7 +138,7 @@ function drawGradesChart() {
                     }
                 }
             },
-            cutout: '60%'
+            cutout: '65%'
         }
     });
 }
